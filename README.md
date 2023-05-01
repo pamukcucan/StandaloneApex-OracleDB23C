@@ -1,5 +1,3 @@
-# StandaloneApex-OracleDB23C
-
 Start with Linux 8 intance root user;
 
 Sudo su
@@ -23,7 +21,7 @@ Sudo su
 /etc/init.d/oracle-free-23c configure
 
 
-Setting Oracle Database Free Environment Variables
+Setting Oracle Database Free Environment Variables >> (Kalıcı hale getirmek için aşağıdaki ** bölüm ile devam edilebilir)
 After you install and configure Oracle Database Free, set the environment before you use Oracle Database Free. 
 Use the oraenv and coraenv scripts to set your environment variables. 
 For example, to set your environment variables in Bourne, Bash, or Korn shell without being prompted by the script:
@@ -49,6 +47,7 @@ Version 23.2.0.0.0
 
 
 These commands connect you to the root container CDB$ROOT of the multitenant database (CDB) as database user SYS. This method of connecting to the database works even if the Net Services listener is not running. 
+
 
 $ cd $ORACLE_HOME/bin
 $ lsnrctl status
@@ -83,6 +82,21 @@ Service "freepdb1.dbhost.example.com" has 1 instance(s).
 The command completed successfully
 
 
+**Varıable'ları her sefer tek tek set etmek yerine root user ile env dediğimizde çıkan farkları cd home/oracle daki .bash_profile içerisine eklersek bunu kalıcı hale getirmiş oluruz!
+
+Bu durumda farklar aşağıdakiler, bunları .bash_profile'a ekliyoruz:
+
+export ORACLE_SID=FREE
+export ORACLE_BASE=/opt/oracle
+export ORACLE_HOME=/opt/oracle/product/23c/dbhomeFree
+export OLDPWD=/opt/oracle
+export PWD=/opt/oracle/product/23c/dbhomeFree/bin
+export ORAENV_ASK=NO
+
+
+
+
+
 Starting and Stopping Oracle Database
 Shut Down and Start-Up Using SQL*Plus
 You can shut down and start the database using SQL*Plus.
@@ -95,6 +109,28 @@ To start the database:
 
 SQL> STARTUP
 SQL> ALTER PLUGGABLE DATABASE ALL OPEN;
+
+
+Listener ve DB Tek tek Stop Start etmek yerine hepsini Otomatize edelim;
+
+Sudo su
+# systemctl daemon-reload
+# systemctl enable oracle-free-23c
+
+Bu komutlar ile hem Listener hem de DB için stop ve start verebiliriz;
+
+# systemctl start oracle-free-23c
+# systemctl stop oracle-free-23c
+# systemctl restart oracle-free-23c
+
+Bu komut ile de Statusu görebiliriz;
+
+# /etc/init.d/oracle-free-23c status
+
+Status of the Oracle FREE 23c service:
+LISTENER status: RUNNING
+FREE Database status: RUNNING
+
 
 
 Now Lets Install Apex
@@ -182,13 +218,13 @@ And don't forget to setup your security list access rules accordingly;
 
 The final Test
 
-http://158.***.***.166:8181/ords
+http://158.101.231.166:8181/ords
 
 
 
 Congrats!!
 
-http://158.***.***.166:8080/ords/sql-developer
+http://158.101.231.166:8080/ords/sql-developer
 
 
 
@@ -197,6 +233,7 @@ References:
 https://tm-apex.hashnode.dev/quick-and-easy-apex-and-ords-installation-for-oracle-database-23c-developer-release-on-oci
 
 https://docs.oracle.com/en/database/oracle/oracle-database/23/xeinl/starting-and-stopping-oracle-database.html
+
 
 
 
