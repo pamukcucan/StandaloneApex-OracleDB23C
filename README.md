@@ -89,8 +89,6 @@ Bu durumda farklar aşağıdakiler, bunları .bash_profile'a ekliyoruz:
 export ORACLE_SID=FREE
 export ORACLE_BASE=/opt/oracle
 export ORACLE_HOME=/opt/oracle/product/23c/dbhomeFree
-export OLDPWD=/opt/oracle
-export PWD=/opt/oracle/product/23c/dbhomeFree/bin
 export ORAENV_ASK=NO
 
 
