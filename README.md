@@ -216,13 +216,13 @@ And don't forget to setup your security list access rules accordingly;
 
 The final Test
 
-http://158.101.231.166:8181/ords
+http://localhost:8181/ords
 
 
 
 Congrats!!
 
-http://158.101.231.166:8080/ords/sql-developer
+http://localhost:8080/ords/sql-developer
 
 
 
